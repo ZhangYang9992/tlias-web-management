@@ -2,7 +2,9 @@ package com.example.mapper;
 
 import com.example.pojo.Emp;
 import com.example.pojo.EmpQueryParam;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
@@ -42,4 +44,14 @@ public interface EmpMapper {
     // @Select("select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id " +
     //        "order by e.update_time desc")
     // public List<Emp> list();
+
+    /**
+     * 新增员工基本信息
+     * @param emp
+     */
+    @Options(useGeneratedKeys = true, keyProperty = "id") // 获取生成的主键 —— 主键返回
+    @Insert("insert into emp(username, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time)" +
+            " values(#{username}, #{name}), #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryDate}, #{deptId}, #{createTime}, #{updateTime}")
+    // 注意类中的变量名是驼峰命名
+    void insert(Emp emp);
 }
