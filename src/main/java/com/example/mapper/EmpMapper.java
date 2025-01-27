@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.pojo.Emp;
+import com.example.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -33,7 +34,9 @@ public interface EmpMapper {
     //    "order by e.update_time desc")
 
     // 条件查询较复杂 可以用xml来配置实现
-    public List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+//    public List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+
+    public List<Emp> list(EmpQueryParam empQueryParam);
 
     // 在pageHeler定义下只需要定义下述语句即可
     // @Select("select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id " +
