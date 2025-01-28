@@ -19,3 +19,15 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 驼峰命名开启
     map-underscore-to-camel-case: true
+
+# 配置事务管理日志级别
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+# 阿里云OSS
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.alliyuncs.com
+    bucketName: java-ai
+    region: cn-beijing
