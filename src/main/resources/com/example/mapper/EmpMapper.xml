@@ -3,6 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.EmpMapper">
+    <!--  批量删除员工 (1, 2, 3) -->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
     <!-- 1. 创建同包同名的目录和文件 -->
     <!-- 2. namespace为该类的全引用  -->
     <!-- 3. 设置<select>标签, 其中id为方法名, resultType为返回结果值 -->

@@ -80,4 +80,15 @@ public PageResult<Emp> page(EmpQueryParam empQueryParam) {
             empExprMapper.insertBatch(exprList);
         }
     }
+
+    // 该方法有两次操作数据库，所以需要加Transactional 即有异常均回滚
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void delete(List<Integer> ids) {
+        // 1. 删除员工的基本信息
+        empMapper.deleteByIds(ids);
+
+        // 2. 删除员工的工作信息
+        empExprMapper.deleteByEmpIds(ids);
+    }
 }

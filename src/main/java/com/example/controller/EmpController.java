@@ -13,6 +13,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 员工Controller
@@ -55,6 +57,21 @@ public class EmpController {
         // @RequestBody用于接受json信息
         log.info("新增员工: {}", emp);
         empService.save(emp);
+        return Result.success();
+    }
+
+    /**
+     * 删除员工
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids) {
+        // Integer[] ids 直接封装到数组中
+        // 若参数封装到List<Integer>集合中, 则需要@RequestParam来注解中 (推荐)
+        log.info("删除员工: {}", ids);
+
+        empService.delete(ids);
         return Result.success();
     }
 }

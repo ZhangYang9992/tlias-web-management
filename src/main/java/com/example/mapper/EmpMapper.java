@@ -54,4 +54,10 @@ public interface EmpMapper {
             " values(#{username}, #{name}), #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryDate}, #{deptId}, #{createTime}, #{updateTime}")
     // 注意类中的变量名是驼峰命名
     void insert(Emp emp);
+
+    /**
+     * 根据ids批量删除员工, 动态SQL
+     * @param ids
+     */
+    void deleteByIds(List<Integer> ids);
 }
