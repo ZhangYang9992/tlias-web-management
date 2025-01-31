@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -95,5 +96,26 @@ public PageResult<Emp> page(EmpQueryParam empQueryParam) {
     @Override
     public Emp getInfo(Integer id) {
         return empMapper.getById(id);
+    }
+
+    // 多次操作数据库
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void update(Emp emp) {
+        // 1. 根据ID修改员工基本信息
+        emp.setCreateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+
+        // 2. 根据ID修改员工的工作经历信息
+        // 2.1 先删除
+        empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId()));
+
+        // 2.2 再添加
+        List<EmpExpr> exprList = emp.getExprList();
+        if(!CollectionUtils.isEmpty(exprList)){
+            // 在设置员工经历前要对员工经历进行赋值id
+            exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+            empExprMapper.insertBatch(exprList);
+        }
     }
 }
