@@ -91,4 +91,9 @@ public PageResult<Emp> page(EmpQueryParam empQueryParam) {
         // 2. 删除员工的工作信息
         empExprMapper.deleteByEmpIds(ids);
     }
+
+    @Override
+    public Emp getInfo(Integer id) {
+        return empMapper.getById(id);
+    }
 }

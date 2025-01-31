@@ -4,7 +4,6 @@ import com.example.pojo.Emp;
 import com.example.pojo.EmpQueryParam;
 import com.example.pojo.PageResult;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface EmpService {
@@ -20,4 +19,7 @@ public interface EmpService {
     void save(Emp emp);
 
     void delete(List<Integer> ids);
+
+    // 根据id查询员工信息
+    Emp getInfo(Integer id);
 }

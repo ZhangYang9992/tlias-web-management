@@ -60,4 +60,11 @@ public interface EmpMapper {
      * @param ids
      */
     void deleteByIds(List<Integer> ids);
+
+    /**
+     * 根据员工id查询员工信息和的工作经历 外连接
+     * @param id
+     * @return
+     */
+    Emp getById(Integer id);
 }
